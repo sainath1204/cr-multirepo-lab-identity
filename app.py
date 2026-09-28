@@ -1,3 +1,10 @@
+"""Synthetic identity service consumed by cr-multirepo-lab-gateway.
+
+The gateway POSTs a token to /verify and forwards the returned user_id as
+X-User-Id to sibling services. This deliberately unsafe lab endpoint is for
+static-analysis tests only; never deploy it with real identities or data.
+"""
+
 import base64, json
 from flask import Flask, request, jsonify
 app = Flask(__name__)
