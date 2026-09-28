@@ -22,7 +22,9 @@ This service is called through the gateway, which supplies X-User-Id after consu
 The [gateway](https://github.com/sainath1204/cr-multirepo-lab-gateway) calls
 `POST /verify` with a JSON `token`. The response carries `user_id` and `role`;
 the gateway propagates `user_id` to the other lab services through `X-User-Id`.
-This makes token verification here part of the trust boundary for every
-proxied `/api/<service>/...` route. The gateway's `compose.yaml` pins this
+The endpoint only extracts unverified claims: it does not validate token
+signatures. The deliberately vulnerable gateway trusts this output on every
+proxied `/api/<service>/...` route; real applications must not treat it as
+authenticated identity. The gateway's `compose.yaml` pins this
 service to a specific source revision, so default-branch changes alone do not
 change that composed fixture.
